@@ -6,6 +6,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withPlugins([[withBundleAnalyzer]], {
     images: {
         formats: ['image/avif', 'image/webp'],
-        domains: ['res.cloudinary.com', 'file.hstatic.net'],
+        domains: [
+            'res.cloudinary.com',
+            'file.hstatic.net',
+            'scontent.fsgn8-2.fna.fbcdn.net',
+        ],
     },
 })

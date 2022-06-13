@@ -8,7 +8,10 @@ const Index = () => {
 export const getServerSideProps: GetServerSideProps = requiredAuth(
     async () => {
         return {
-            props: {},
+            redirect: {
+                destination: '/admin/dashboard',
+                permanent: false,
+            },
         }
     },
     { role: 'ADMIN' },

@@ -15,6 +15,7 @@ const Layout: React.FC<ILayout> = ({ children }) => {
                             src="https://file.hstatic.net/1000075078/file/_kh_9748_44d9e63ab1df4fdb99261c49fa71c1c8_master.jpg"
                             layout="fill"
                             objectFit="cover"
+                            loading="eager"
                         />
                     </div>
                     <div className="flex-1 p-12">{children}</div>

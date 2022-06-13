@@ -5,7 +5,7 @@ import { parseCookies, setCookie } from 'nookies'
 import { getToken } from 'utils'
 
 export const api = axios.create({
-    baseURL: 'https://the-coffee-house-api.herokuapp.com/api/v1',
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -18,14 +18,14 @@ api.interceptors.request.use(async (config: any) => {
         let accessToken = await getToken()
 
         accessToken && (config.headers.Authorization = 'Bearer ' + accessToken)
-    } catch (error) {}
-
+    } catch (error) {
+        console.log(error)
+    }
     return config
 })
 
 api.interceptors.response.use(
     (response: AxiosResponse) => {
-        console.log(response)
         if (response && response.data) {
             return response.data
         }

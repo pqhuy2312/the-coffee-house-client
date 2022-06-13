@@ -53,7 +53,6 @@ export const requiredAuth = (gssp: GetServerSideProps, options?: IOptions) => {
                 },
             }
         } catch (error) {
-            // console.log(error)
             return {
                 redirect: {
                     destination: `/dang-nhap?next=${encodeURIComponent(

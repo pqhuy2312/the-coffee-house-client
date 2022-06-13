@@ -1,37 +1,44 @@
-import { parseCookies, setCookie } from 'nookies'
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import jwtDecode, { JwtPayload } from 'jwt-decode'
 
 import { GetServerSidePropsContext } from 'next'
 
 import nookies from 'nookies'
 import { userApi } from 'api'
+import { setToken } from './setToken'
 
 export const refreshToken = async (ctx?: GetServerSidePropsContext) => {
     try {
         if (ctx) {
             const Cookie = ctx?.req.headers.cookie
 
-            const accessToken = await userApi.refreshToken(Cookie)
-            if (accessToken) {
-                nookies.set(ctx, 'accessToken', accessToken, {
-                    maxAge: 12 * 60,
-                })
-            }
+            const res = await userApi.refreshToken(Cookie)
 
-            return accessToken
+            nookies.set(ctx, 'accessToken', res.accessToken, {
+                maxAge: 3 * 24 * 60 * 60,
+                path: '/',
+            })
+            nookies.set(ctx, 'refreshToken', res.refreshToken, {
+                maxAge: 7 * 24 * 60 * 60,
+                path: '/',
+            })
+
+            return res.accessToken
         } else {
-            const accessToken = await userApi.refreshToken()
+            const res = await userApi.refreshToken()
 
-            if (accessToken) {
-                setCookie(null, 'accessToken', accessToken, {
-                    maxAge: 3 * 24 * 60 * 60,
-                })
-            }
+            setToken(res.accessToken, res.refreshToken)
 
-            return accessToken
+            return res.accessToken
         }
     } catch (error) {
-        console.log(error)
+        if (ctx) {
+            nookies.destroy(ctx, 'accessToken')
+            nookies.destroy(ctx, 'refreshToken')
+        } else {
+            destroyCookie(null, 'accessToken')
+            destroyCookie(null, 'refreshToken')
+        }
         return null
     }
 }
@@ -56,13 +63,10 @@ export const getToken = async (ctx?: GetServerSidePropsContext) => {
                 ctx ? (ctx as GetServerSidePropsContext) : undefined,
             )
             if (!newAccessToken) return null
-            setCookie(null, 'accessToken', newAccessToken, {
-                maxAge: 12 * 60,
-            })
+
             return newAccessToken
         }
     } catch (error) {
-        console.log(error)
         return null
     }
     return accessToken

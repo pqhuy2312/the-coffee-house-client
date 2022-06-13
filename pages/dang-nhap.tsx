@@ -8,6 +8,7 @@ import { useMutation } from 'react-query'
 import { userApi } from 'api'
 import { useRouter } from 'next/router'
 import { setCookie } from 'nookies'
+import { setToken } from 'utils'
 
 const Login = () => {
     const {
@@ -21,9 +22,8 @@ const Login = () => {
     const onSubmit = async (data: ILoginParams) => {
         try {
             const res = await mutation.mutateAsync(data)
-            setCookie(null, 'accessToken', res, {
-                maxAge: 12 * 60,
-            })
+
+            setToken(res.accessToken, res.refreshToken)
             const to = router.query.next ? `/${router.query.next}` : '/'
             router.push(to)
         } catch (error) {}

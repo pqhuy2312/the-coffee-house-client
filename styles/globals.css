@@ -30,6 +30,10 @@
         color: #191919;
         display: block;
     }
+
+    li {
+        list-style-type: none;
+    }
 }
 
 @layer components {
@@ -48,5 +52,15 @@
 
     .primary-btn:hover:before {
         @apply scale-x-0 origin-right;
+    }
+
+    .bars {
+        @apply w-4 bg-gray-500 h-[2px] relative before:top-[-6px] after:top-[6px];
+    }
+
+    .bars:before,
+    .bars::after {
+        content: '';
+        @apply w-5 bg-gray-500 h-[2px] absolute left-0;
     }
 }
