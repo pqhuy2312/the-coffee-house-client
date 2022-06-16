@@ -33,7 +33,7 @@ const AdminSidebar: React.FC<IAdminSidebarProps> = ({ hide }) => {
         >
             <div className="h-[70px] flex justify-center items-center">
                 <Link href="/admin/dashboard">
-                    <a className="text-primary text-xl font-bold">ADMIN</a>
+                    <a className="text-primary text-xl font-bold mx-4">ADMIN</a>
                 </Link>
             </div>
             <div className="mt-5">
@@ -41,7 +41,9 @@ const AdminSidebar: React.FC<IAdminSidebarProps> = ({ hide }) => {
                     <li key={index}>
                         <Link href={item.url}>
                             <a
-                                className={`py-3 px-6 relative flex items-center ${
+                                className={`py-3 px-6 relative flex ${
+                                    hide ? 'justify-center' : ''
+                                } items-center ${
                                     !router.asPath.startsWith(item.url)
                                         ? 'text-[#404040] lg:hover:text-black lg:hover:bg-[#f5f5f5]'
                                         : 'text-primary before:w-1 before:h-full before:rounded-3xl before:absolute before:top-0 before:left-0 before:bg-primary'
@@ -51,9 +53,11 @@ const AdminSidebar: React.FC<IAdminSidebarProps> = ({ hide }) => {
                                     style={{ fontSize: item.iconSize }}
                                     className="min-w-[20px] text-left"
                                 />
-                                <span className="ml-3 text-[13px] font-semibold">
-                                    {item.title}
-                                </span>
+                                {!hide && (
+                                    <span className="ml-3 text-[13px] font-semibold">
+                                        {item.title}
+                                    </span>
+                                )}
                             </a>
                         </Link>
                     </li>

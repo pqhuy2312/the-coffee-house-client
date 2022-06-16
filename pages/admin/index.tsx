@@ -5,16 +5,13 @@ const Index = () => {
     return null
 }
 
-export const getServerSideProps: GetServerSideProps = requiredAuth(
-    async () => {
-        return {
-            redirect: {
-                destination: '/admin/dashboard',
-                permanent: false,
-            },
-        }
-    },
-    { role: 'ADMIN' },
-)
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    return {
+        redirect: {
+            destination: '/admin/dashboard',
+            permanent: false,
+        },
+    }
+}
 
 export default Index

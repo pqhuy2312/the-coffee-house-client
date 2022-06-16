@@ -15,6 +15,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
             },
+            boxShadow: {
+                card: '0px 0px 13px 0px #00000040',
+                card2: '0 4px 16px rgb(0 0 0 / 12%)',
+            },
         },
     },
     variants: {

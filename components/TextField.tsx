@@ -30,7 +30,7 @@ const TextField: React.FC<ITextFieldProps> = ({
             <input
                 {...register}
                 placeholder={placeholder}
-                className="block w-full px-3 input-shadow text-[#333] h-12 border border-gray-200 bg-gray-100 text-base focus:bg-white rounded-md transition-colors"
+                className="text-field"
                 type={type}
                 name={name}
             />

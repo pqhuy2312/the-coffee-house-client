@@ -9,13 +9,4 @@ const Dashboard = () => {
 
 Dashboard.getLayout = (page: ReactElement) => <AdminLayout>{page}</AdminLayout>
 
-export const getServerSideProps: GetServerSideProps = requiredAuth(
-    async () => {
-        return {
-            props: {},
-        }
-    },
-    { role: 'ADMIN' },
-)
-
 export default Dashboard

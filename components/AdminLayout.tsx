@@ -1,25 +1,35 @@
 import { userApi } from 'api'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { IUser } from 'types'
 import { BiBell } from 'react-icons/bi'
 import AdminSidebar from './AdminSidebar'
+import { useRouter } from 'next/router'
 
 interface IAdminLayout {
     children: ReactNode
 }
 
 const AdminLayout: React.FC<IAdminLayout> = ({ children }) => {
-    const { data } = useQuery('me', () => userApi.me())
+    const { data, error, isLoading } = useQuery('me', () => userApi.me())
     const [hide, setHide] = useState(false)
+    const router = useRouter()
+
+    useEffect(() => {
+        if (error || (data && data.role != 'ADMIN')) {
+            router.push('/')
+        }
+    }, [error])
+
+    if (isLoading) return null
 
     return (
         <div className="flex">
             <AdminSidebar hide={hide} />
             <div className="flex-1">
-                <div className=" h-[70px] flex items-center justify-between shadow-md sticky top-0 bg-white">
+                <div className=" h-[70px] flex items-center justify-between shadow-md sticky top-0 z-50 bg-white">
                     <button
                         onClick={() => setHide(!hide)}
                         className="px-5 h-full flex"
@@ -45,7 +55,7 @@ const AdminLayout: React.FC<IAdminLayout> = ({ children }) => {
                         </button>
                     </div>
                 </div>
-                <main className="h-[2000px]">{children}</main>
+                <main className="pb-24 bg-[#F9FAFB] p-5">{children}</main>
             </div>
         </div>
     )

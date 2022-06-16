@@ -28,7 +28,7 @@ const IMAGES = [
 
 const Banner = () => {
     return (
-        <div className="relative -translate-y-[60px]">
+        <section className="relative -translate-y-[60px]">
             <Swiper
                 modules={[Pagination, Autoplay]}
                 pagination={{ clickable: true }}
@@ -50,7 +50,7 @@ const Banner = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-        </div>
+        </section>
     )
 }
 

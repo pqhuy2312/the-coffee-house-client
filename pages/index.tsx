@@ -1,11 +1,15 @@
 import { ReactElement } from 'react'
 import Layout from 'components/Layout'
 import Banner from 'components/Banner'
+import HomeMenu from 'components/HomeMenu'
+import HomeBrand from 'components/HomeBrand'
 
 const Home = () => {
     return (
-        <div className="h-[2000px]">
+        <div>
             <Banner />
+            <HomeMenu />
+            <HomeBrand />
         </div>
     )
 }
