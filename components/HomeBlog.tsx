@@ -8,7 +8,7 @@ import HomeListBlog from './HomeListBlog'
 const HomeBlog = () => {
     const { data: topics } = useQuery('topics', topicsApi.getTopics)
     const { data } = useQuery(
-        'getPostsByTopic',
+        'getHomeBlogs',
         () => {
             return Promise.all(
                 topics!.map((topic) =>
