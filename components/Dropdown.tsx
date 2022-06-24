@@ -16,7 +16,7 @@ interface IDropdownProps {
 
 const Dropdown: React.FC<IDropdownProps> = ({ data }) => {
     return (
-        <div className="pt-6 pb-8 flex justify-center bg-white absolute top-[200%] left-0 w-full opacity-0 invisible group-hover:visible group-hover:opacity-100 group-hover:top-full transition-all duration-500">
+        <div className="pt-6 pb-8 flex justify-center bg-white absolute top-[200%] left-0 w-full opacity-0 invisible group-hover:visible group-hover:opacity-100 group-hover:top-full pointer-events-none group-hover:pointer-events-auto transition-all duration-500">
             <div className="layout">
                 <ul className="flex gap-x-10">
                     <li className="flex-1">

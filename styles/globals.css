@@ -68,8 +68,24 @@
         @apply block w-full px-3 text-[#333] h-12 border border-gray-200 bg-gray-100 text-base focus:bg-white rounded-md transition-colors;
     }
 
+    .line-clamp-1 {
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+    }
+
     .line-clamp-2 {
         -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+    }
+
+    .line-clamp-3 {
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -82,5 +98,24 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
+    }
+
+    .before-bg-file:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: var(--bg);
+        background-size: cover;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        opacity: 1;
+        transition: opacity 0.3s;
+    }
+
+    .before-bg-file:hover:before {
+        opacity: 0.1;
     }
 }

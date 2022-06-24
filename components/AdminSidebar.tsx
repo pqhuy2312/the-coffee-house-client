@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { MdDashboard } from 'react-icons/md'
 import { RiShoppingBag3Line } from 'react-icons/ri'
+import { IoNewspaperOutline, IoStorefrontSharp } from 'react-icons/io5'
 
 interface IAdminSidebarProps {
     hide: boolean
@@ -19,6 +20,18 @@ const SIDEBAR_ITEMS = [
         icon: RiShoppingBag3Line,
         title: 'Products',
         url: '/admin/products',
+        iconSize: 21,
+    },
+    {
+        icon: IoStorefrontSharp,
+        title: 'Stores',
+        url: '/admin/stores',
+        iconSize: 21,
+    },
+    {
+        icon: IoNewspaperOutline,
+        title: 'Posts',
+        url: '/admin/posts',
         iconSize: 21,
     },
 ]

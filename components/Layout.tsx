@@ -3,6 +3,7 @@ import l from 'assets/images/vector_706a88566eab4f009bed6eea93cd890b.webp'
 import b from 'assets/images/vector_c337310f409d440f890b370ff9cefe44.webp'
 import Link from 'next/link'
 import { Fragment, ReactNode } from 'react'
+import Footer from './Footer'
 import Header from './Header'
 
 interface ILayout {
@@ -127,6 +128,7 @@ const Layout: React.FC<ILayout> = ({ children }) => {
             </div>
             <Header />
             <main>{children}</main>
+            <Footer />
         </div>
     )
 }

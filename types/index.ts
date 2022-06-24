@@ -19,11 +19,21 @@ export interface ICategory {
     updatedAt: Date
 }
 
+export interface ITag {
+    id: number
+    title: string
+    slug: string
+    topicId: number
+    topic: ITopic
+    createdAt: Date
+    updatedAt: Date
+}
+
 export interface ITopic {
     id: number
     title: string
     slug: string
-    tags: Array<ITopic>
+    tags: Array<ITag>
     createdAt: Date
     updatedAt: Date
 }
@@ -121,4 +131,53 @@ export interface IPaginationResponse<T> extends IPaginationParams {
     lastPage: string
     totalPage: number
     rows: T
+}
+
+export interface ICreateStoreParams {
+    name: string
+    description: string
+    slug?: string
+    address: string
+    openAt: string
+    closeAt: string
+    images: string[]
+}
+
+export interface IStore {
+    id: number
+    name: string
+    slug: string
+    description: string
+    address: string
+    openAt: string
+    closeAt: string
+    images: IProductImage[]
+    createdAt: Date
+    updatedAt: Date
+}
+
+export interface ICreatePostParams {
+    title: string
+    slug?: string
+    content: string
+    thumbnail: string
+    tagId: number
+    topicId: number
+}
+
+export interface IPost {
+    id: number
+    title: string
+    slug: string
+    content: string
+    thumbnail: string
+    tagId: number
+    tag: ITag
+    description: string
+    topicId: number
+    topic: ITopic
+    userId: number
+    user: IUser
+    createdAt: Date
+    updatedAt: Date
 }

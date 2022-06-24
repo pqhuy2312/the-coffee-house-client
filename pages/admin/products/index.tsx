@@ -1,12 +1,10 @@
+import { categoriesApi } from 'api'
 import AdminLayout from 'components/AdminLayout'
 import SelectField, { IOptions } from 'components/SelectField'
-import { GetServerSideProps } from 'next'
 import Link from 'next/link'
-import React, { ReactElement, useMemo } from 'react'
-import { requiredAuth } from 'utils'
+import { ReactElement, useMemo } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import { useQuery } from 'react-query'
-import { categoriesApi } from 'api'
 
 const Index = () => {
     const { data: categories } = useQuery(
@@ -38,7 +36,7 @@ const Index = () => {
 
     return (
         <div>
-            <h3 className="text-black text-[18px] font-bold mb-5">Courses</h3>
+            <h3 className="text-black text-[18px] font-bold mb-5">Products</h3>
             <div className="p-4 shadow-sm rounded-lg bg-white">
                 <form className="flex justify-between h-10 gap-x-5">
                     <input

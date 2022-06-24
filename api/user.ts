@@ -19,20 +19,19 @@ export const userApi = {
             await api.post('/auth/login', params)
         return res.data
     },
-    refreshToken: async (Cookie?: string) => {
-        const options: any = Cookie
-            ? {
-                  headers: {
-                      Cookie,
-                  },
-                  credentials: 'include',
-              }
-            : undefined
+    refreshToken: async (token: string) => {
         const res: IApiResponse<{ accessToken: string; refreshToken: string }> =
             await (
                 await fetch(
                     `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`,
-                    options,
+                    {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ refreshToken: token }),
+                    },
                 )
             ).json()
 

@@ -11,6 +11,7 @@ module.exports = {
             colors: {
                 primary: '#ea8025',
                 invalid: '#e32c22',
+                dark3e: '#3E4042',
             },
             fontFamily: {
                 sans: ['Montserrat', ...defaultTheme.fontFamily.sans],

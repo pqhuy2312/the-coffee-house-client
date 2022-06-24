@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { ControllerRenderProps } from 'react-hook-form'
 import 'react-markdown-editor-lite/lib/index.css'
+import { imageUpload } from 'utils'
 
 export const mdParser: any = new MarkdownIt({
     html: true,
@@ -16,8 +17,14 @@ export const mdParser: any = new MarkdownIt({
     },
 })
 
-function renderHTML(text: string) {
+export function renderHTML(text: string) {
     return mdParser.render(text)
+}
+
+function onImageUpload(file: File) {
+    return new Promise((resolve) => {
+        imageUpload(file).then((res) => resolve(res?.secure_url))
+    })
 }
 
 const MdEditor = dynamic<any>(() => import('react-markdown-editor-lite'), {
@@ -49,6 +56,7 @@ const EditorField: React.FC<IEditorFieldProps> = ({
                 value={value}
                 onChange={handleEditorChange}
                 renderHTML={renderHTML}
+                onImageUpload={onImageUpload}
             />
             {error && (
                 <span className="text-invalid mt-1 text-sm">{error}</span>

@@ -10,9 +10,11 @@ import { setToken } from './setToken'
 export const refreshToken = async (ctx?: GetServerSidePropsContext) => {
     try {
         if (ctx) {
-            const Cookie = ctx?.req.headers.cookie
+            const cookies = nookies.get(ctx)
+            const token = cookies.refreshToken
+            if (!token) return null
 
-            const res = await userApi.refreshToken(Cookie)
+            const res = await userApi.refreshToken(token)
 
             nookies.set(ctx, 'accessToken', res.accessToken, {
                 maxAge: 3 * 24 * 60 * 60,
@@ -25,7 +27,10 @@ export const refreshToken = async (ctx?: GetServerSidePropsContext) => {
 
             return res.accessToken
         } else {
-            const res = await userApi.refreshToken()
+            const cookies = parseCookies()
+            const token = cookies.refreshToken
+            if (!token) return null
+            const res = await userApi.refreshToken(token)
 
             setToken(res.accessToken, res.refreshToken)
 

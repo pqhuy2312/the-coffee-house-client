@@ -13,6 +13,7 @@ interface ISelectFieldProps {
     width?: number
     selected?: IOptions
     field?: ControllerRenderProps<any, any>
+    placeholder?: string
 }
 
 const SelectField: React.FC<ISelectFieldProps> = ({
@@ -21,6 +22,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
     width,
     selected,
     field,
+    placeholder,
 }) => {
     const [selectedOption, setSelectedOption] = useState<any>(selected ?? null)
 
@@ -64,6 +66,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
             styles={{ ...customStyles, ...styles }}
             onChange={handleChange}
             options={options}
+            placeholder={placeholder}
         />
     )
 }

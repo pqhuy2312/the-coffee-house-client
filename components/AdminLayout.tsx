@@ -13,7 +13,9 @@ interface IAdminLayout {
 }
 
 const AdminLayout: React.FC<IAdminLayout> = ({ children }) => {
-    const { data, error, isLoading } = useQuery('me', () => userApi.me())
+    const { data, error, isLoading } = useQuery('me', () => userApi.me(), {
+        retry: false,
+    })
     const [hide, setHide] = useState(false)
     const router = useRouter()
 
@@ -23,12 +25,12 @@ const AdminLayout: React.FC<IAdminLayout> = ({ children }) => {
         }
     }, [error])
 
-    if (isLoading) return null
+    if (isLoading || error) return null
 
     return (
         <div className="flex">
             <AdminSidebar hide={hide} />
-            <div className="flex-1">
+            <div className="flex-1 min-h-screen">
                 <div className=" h-[70px] flex items-center justify-between shadow-md sticky top-0 z-50 bg-white">
                     <button
                         onClick={() => setHide(!hide)}
