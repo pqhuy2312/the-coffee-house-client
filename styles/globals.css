@@ -118,4 +118,8 @@
     .before-bg-file:hover:before {
         opacity: 0.1;
     }
+
+    .primary-link {
+        @apply hover:text-primary transition-colors duration-300 text-[#191919] font-semibold;
+    }
 }

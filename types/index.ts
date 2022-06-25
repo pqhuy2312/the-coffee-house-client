@@ -95,11 +95,13 @@ export interface IProduct {
     sizes: IProductSize[]
     toppings: ITopping[]
     categoryId: number
+    category: ICategory
     createdAt: Date
     updatedAt: Date
 }
 
 export interface IProductSize {
+    id: number
     name: string
     price: number
 }

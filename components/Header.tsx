@@ -83,7 +83,7 @@ const Header = () => {
     )
 
     return (
-        <header className="sticky z-50 top-0 bg-[rgba(255,255,255,0.8)]">
+        <header className="sticky z-50 top-0 bg-[rgba(255,255,255,0.8)] border-b border-[#00000026]">
             <nav className="flex items-center layout">
                 <Link href="/">
                     <a className="logo">

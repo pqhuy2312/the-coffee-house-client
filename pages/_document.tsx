@@ -19,6 +19,11 @@ class MyDocument extends Document {
                         rel="stylesheet"
                     />
                     <link rel="dns-prefetch" href="//res.cloudinary.com" />
+                    <link
+                        rel="shortcut icon"
+                        href="/favicon.webp"
+                        type="image/webp"
+                    ></link>
                 </Head>
                 <body>
                     <Main />

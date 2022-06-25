@@ -8,10 +8,12 @@ import HomeBlog from 'components/HomeBlog'
 import { GetStaticProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { categoriesApi, postsApi, productsApi, storesApi, topicsApi } from 'api'
+import Meta from 'components/Meta'
 
 const Home = () => {
     return (
         <div>
+            <Meta />
             <Banner />
             <HomeMenu />
             <HomeBrand />

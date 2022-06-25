@@ -22,17 +22,20 @@ export const productsApi = {
             await api.get(`/products?${paramsString}`)
         return res.data
     },
-    getProduct: async (slug: string) => {
+    getProductBySlug: async (slug: string) => {
         const res: IApiResponse<IProduct> = await api.get(`/products/${slug}`)
         return res.data
     },
-    getProductsByCategory: async (
-        categoryId: number,
-        params: IPaginationParams,
-    ) => {
+    getProductsByCategory: async (slug: string, params: IPaginationParams) => {
         const paramsString = queryString.stringify(params)
         const res: IApiResponse<IPaginationResponse<IProduct[]>> =
-            await api.get(`/categories/${categoryId}/products?${paramsString}`)
+            await api.get(`/categories/${slug}/products?${paramsString}`)
+        return res.data
+    },
+    getRelatedProducts: async (slug: string, params: IPaginationParams) => {
+        const paramsString = queryString.stringify(params)
+        const res: IApiResponse<IPaginationResponse<IProduct[]>> =
+            await api.get(`/products/${slug}/related?${paramsString}`)
         return res.data
     },
 }
