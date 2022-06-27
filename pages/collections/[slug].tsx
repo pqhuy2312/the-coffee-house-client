@@ -71,16 +71,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         )
 
         if (res.parentId) {
-            await queryClient.prefetchInfiniteQuery(
-                `/categories/${res.slug}/products?limit=9`,
-                productsApi.getProductsByCategory,
-                {
-                    getNextPageParam: (lastPage, pages) => lastPage.page + 1,
-                },
-            )
+            await Promise.all([
+                queryClient.prefetchInfiniteQuery(
+                    `/categories/${res.slug}/products?limit=9`,
+                    productsApi.getProductsByCategory,
+                    {
+                        getNextPageParam: (lastPage, pages) =>
+                            lastPage.page + 1,
+                    },
+                ),
+                queryClient.prefetchQuery(['category', params?.slug], () =>
+                    categoriesApi.getCategoryBySlug(params?.slug as string),
+                ),
+            ])
         } else {
-            await Promise.all(
-                res.children.map((category) =>
+            await Promise.all([
+                queryClient.prefetchQuery(['category', params?.slug], () =>
+                    categoriesApi.getCategoryBySlug(params?.slug as string),
+                ),
+                ...res.children.map((category) =>
                     queryClient.prefetchInfiniteQuery(
                         `/categories/${category.slug}/products?limit=9`,
                         productsApi.getProductsByCategory,
@@ -90,7 +99,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                         },
                     ),
                 ),
-            )
+            ])
         }
     } catch (error) {
         return {
