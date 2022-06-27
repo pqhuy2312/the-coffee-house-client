@@ -83,29 +83,46 @@ export const getStaticPaths: GetStaticPaths = async () => {
                 postSlug: item.slug,
             },
         })),
-        fallback: false,
+        fallback: 'blocking',
     }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const queryClient = new QueryClient()
 
-    const post = await postsApi.getPost(params?.postSlug as string)
+    try {
+        const post = await postsApi.getPost(params?.postSlug as string)
+        if (post.topic.slug !== params?.slug) {
+            return {
+                redirect: {
+                    destination: '/',
+                    permanent: false,
+                },
+            }
+        }
 
-    await Promise.all([
-        queryClient.prefetchQuery(['post', params?.postSlug], () =>
-            postsApi.getPost(params?.postSlug as string),
-        ),
-        queryClient.prefetchQuery(
-            ['latestPostsOfTopic', params?.topicSlug, 1, 6],
-            () =>
-                postsApi.getPostsByTopic(params?.topicSlug as string, {
-                    page: 1,
-                    limit: 6,
-                    not: post?.id as number,
-                }),
-        ),
-    ])
+        await Promise.all([
+            queryClient.prefetchQuery(['post', params?.postSlug], () =>
+                postsApi.getPost(params?.postSlug as string),
+            ),
+            queryClient.prefetchQuery(
+                ['latestPostsOfTopic', params?.topicSlug, 1, 6],
+                () =>
+                    postsApi.getPostsByTopic(params?.topicSlug as string, {
+                        page: 1,
+                        limit: 6,
+                        not: post?.id as number,
+                    }),
+            ),
+        ])
+    } catch (error) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
 
     return {
         props: {

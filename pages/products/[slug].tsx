@@ -216,17 +216,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const queryClient = new QueryClient()
 
-    await Promise.all([
-        queryClient.prefetchQuery(['product', params?.slug], () =>
-            productsApi.getProductBySlug(params?.slug as string),
-        ),
-        queryClient.prefetchQuery(['relatedProducts', params?.slug, 1, 4], () =>
-            productsApi.getRelatedProducts(params?.slug as string, {
-                page: 1,
-                limit: 6,
-            }),
-        ),
-    ])
+    try {
+        await productsApi.getProductBySlug(params?.slug as string)
+
+        await Promise.all([
+            queryClient.prefetchQuery(['product', params?.slug], () =>
+                productsApi.getProductBySlug(params?.slug as string),
+            ),
+            queryClient.prefetchQuery(
+                ['relatedProducts', params?.slug, 1, 4],
+                () =>
+                    productsApi.getRelatedProducts(params?.slug as string, {
+                        page: 1,
+                        limit: 6,
+                    }),
+            ),
+        ])
+    } catch (error) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
 
     return {
         props: {
