@@ -83,6 +83,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                 queryClient.prefetchQuery(['category', params?.slug], () =>
                     categoriesApi.getCategoryBySlug(params?.slug as string),
                 ),
+                queryClient.prefetchQuery(
+                    'categories',
+                    categoriesApi.getCategories,
+                ),
             ])
         } else {
             await Promise.all([
@@ -98,6 +102,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                                 lastPage.page + 1,
                         },
                     ),
+                ),
+                queryClient.prefetchQuery(
+                    'categories',
+                    categoriesApi.getCategories,
                 ),
             ])
         }
