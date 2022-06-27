@@ -200,7 +200,3 @@ export interface IMenuItem {
     root: ILink
     children: Array<ILink>
 }
-
-export interface INotFoundProps {
-    isNotFound: boolean
-}

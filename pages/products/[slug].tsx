@@ -15,9 +15,9 @@ import React, {
     useState,
 } from 'react'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
-import { INotFoundProps, IProductSize, ITopping } from 'types'
+import { IProductSize, ITopping } from 'types'
 
-const DetailProduct = (props: INotFoundProps) => {
+const DetailProduct = () => {
     const router = useRouter()
     const { data: product } = useQuery(
         ['product', router.query?.slug],
@@ -37,12 +37,6 @@ const DetailProduct = (props: INotFoundProps) => {
             enabled: !!router.query?.slug,
         },
     )
-
-    useLayoutEffect(() => {
-        if (props.isNotFound) {
-            router.push('/')
-        }
-    }, [])
 
     const [price, setPrice] = useState<number>(() => {
         if (!product) return 0
@@ -246,9 +240,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ])
     } catch (error) {
         return {
-            props: {
-                isNotFound: true,
-            },
+            notFound: true,
         }
     }
 

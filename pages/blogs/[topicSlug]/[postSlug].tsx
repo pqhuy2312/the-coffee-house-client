@@ -9,9 +9,8 @@ import { dehydrate, QueryClient, useQuery } from 'react-query'
 import parse from 'html-react-parser'
 import { mdParser } from 'components/EditorField'
 import LatestPosts from 'components/LatestPosts'
-import { INotFoundProps } from 'types'
 
-const DetailPost = (props: INotFoundProps) => {
+const DetailPost = () => {
     const router = useRouter()
     const { data: post } = useQuery(
         ['post', router.query?.postSlug],
@@ -32,12 +31,6 @@ const DetailPost = (props: INotFoundProps) => {
             enabled: !!router.query?.topicSlug,
         },
     )
-
-    useLayoutEffect(() => {
-        if (props.isNotFound) {
-            router.push('/')
-        }
-    }, [])
 
     return (
         <div className="pb-[400px]">
@@ -101,9 +94,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const post = await postsApi.getPost(params?.postSlug as string)
         if (post.topic.slug !== params?.slug) {
             return {
-                props: {
-                    isNotFound: true,
-                },
+                notFound: true,
             }
         }
 
@@ -123,9 +114,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ])
     } catch (error) {
         return {
-            props: {
-                isNotFound: true,
-            },
+            notFound: true,
         }
     }
 

@@ -10,9 +10,8 @@ import React, {
     useLayoutEffect,
 } from 'react'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
-import { INotFoundProps } from 'types'
 
-const Collection = (props: INotFoundProps) => {
+const Collection = () => {
     const router = useRouter()
     const { data: category } = useQuery(
         ['category', router.query?.slug],
@@ -21,12 +20,6 @@ const Collection = (props: INotFoundProps) => {
             enabled: !!router.query?.slug,
         },
     )
-
-    useLayoutEffect(() => {
-        if (props.isNotFound) {
-            router.push('/')
-        }
-    }, [])
 
     return (
         <div>
@@ -101,9 +94,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         }
     } catch (error) {
         return {
-            props: {
-                isNotFound: true,
-            },
+            notFound: true,
         }
     }
 
