@@ -1,11 +1,6 @@
 import React, { memo, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
-import { InputChange } from 'types'
-
-export interface ISize {
-    name: string
-    price: number
-}
+import { InputChange, ISize } from 'types'
 
 interface IProductSizeProps {
     sizes: ISize[]

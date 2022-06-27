@@ -74,7 +74,12 @@ export interface ICreateProductParams {
     images: string[]
     categoryId: number
     toppings: number[]
-    sizes: IProductSize[]
+    sizes: ISize[]
+}
+
+export interface ISize {
+    name: string
+    price: number
 }
 
 export interface IProductImage {
