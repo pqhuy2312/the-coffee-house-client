@@ -7,6 +7,7 @@ import {
     IPaginationParams,
     IPaginationResponse,
 } from 'types'
+import { QueryFunctionContext } from 'react-query'
 
 export const productsApi = {
     createProduct: async (params: ICreateProductParams) => {
@@ -26,10 +27,12 @@ export const productsApi = {
         const res: IApiResponse<IProduct> = await api.get(`/products/${slug}`)
         return res.data
     },
-    getProductsByCategory: async (slug: string, params: IPaginationParams) => {
-        const paramsString = queryString.stringify(params)
+    getProductsByCategory: async ({
+        queryKey,
+        pageParam = 1,
+    }: QueryFunctionContext) => {
         const res: IApiResponse<IPaginationResponse<IProduct[]>> =
-            await api.get(`/categories/${slug}/products?${paramsString}`)
+            await api.get(`${queryKey}&page=${pageParam}`)
         return res.data
     },
     getRelatedProducts: async (slug: string, params: IPaginationParams) => {

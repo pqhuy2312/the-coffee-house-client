@@ -14,6 +14,7 @@ export interface ICategory {
     id: number
     title: string
     slug: string
+    parentId: number
     children: Array<ICategory>
     createdAt: Date
     updatedAt: Date
@@ -120,6 +121,7 @@ export interface IImageUploaded {
 }
 
 export interface IPaginationParams {
+    not?: number
     page: number
     limit: number
     sort?: string
@@ -182,4 +184,14 @@ export interface IPost {
     user: IUser
     createdAt: Date
     updatedAt: Date
+}
+
+export interface ILink {
+    title: string
+    url: string
+}
+
+export interface IMenuItem {
+    root: ILink
+    children: Array<ILink>
 }

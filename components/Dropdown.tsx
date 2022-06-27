@@ -1,26 +1,18 @@
 import Link from 'next/link'
-
-interface IDropdownItem {
-    title: string
-    url: string
-}
-
-export interface IDropdownCol {
-    root: IDropdownItem
-    children: Array<IDropdownItem>
-}
+import { IMenuItem } from 'types'
 
 interface IDropdownProps {
-    data: Array<IDropdownCol>
+    data: Array<IMenuItem>
+    viewAllUrl: string
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({ data }) => {
+const Dropdown: React.FC<IDropdownProps> = ({ data, viewAllUrl }) => {
     return (
         <div className="pt-6 pb-8 flex justify-center bg-white absolute top-[200%] left-0 w-full opacity-0 invisible group-hover:visible group-hover:opacity-100 group-hover:top-full pointer-events-none group-hover:pointer-events-auto transition-all duration-500">
             <div className="layout">
                 <ul className="flex gap-x-10">
                     <li className="flex-1">
-                        <Link href="/categories">
+                        <Link href={viewAllUrl}>
                             <a className="hover:text-primary hover:border-primary transition-colors duration-300 block text-base font-semibold border-b-2 border-black">
                                 Tất cả
                             </a>

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import Layout from 'components/Layout'
 import Banner from 'components/Banner'
 import HomeMenu from 'components/HomeMenu'

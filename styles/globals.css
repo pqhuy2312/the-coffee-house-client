@@ -12,6 +12,11 @@
         -webkit-tap-highlight-color: transparent;
     }
 
+    body {
+        text-rendering: optimizeSpeed;
+        -webkit-font-smoothing: antialiased;
+    }
+
     input,
     textarea,
     button,
@@ -33,6 +38,49 @@
 
     li {
         list-style-type: none;
+    }
+
+    .post-content p {
+        margin-bottom: 10px;
+        line-height: 24px;
+        word-break: break-word;
+    }
+
+    .post-content ul {
+        margin-left: 10px;
+    }
+
+    .post-content li {
+        margin-bottom: 10px;
+    }
+
+    .post-content h4 {
+        @apply text-primary;
+    }
+
+    .post-content p img {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .post-content {
+        font-size: 14px;
+    }
+
+    .dot {
+        position: relative;
+    }
+
+    .dot:before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: currentColor;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }
 

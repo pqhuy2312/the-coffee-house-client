@@ -20,4 +20,15 @@ export const postsApi = {
         )
         return res.data
     },
+    getPosts: async (params: IPaginationParams) => {
+        const paramsString = queryString.stringify(params)
+        const res: IApiResponse<IPaginationResponse<IPost[]>> = await api.get(
+            `/posts?${paramsString}`,
+        )
+        return res.data
+    },
+    getPost: async (slug: string) => {
+        const res: IApiResponse<IPost> = await api.get(`/posts/${slug}`)
+        return res.data
+    },
 }

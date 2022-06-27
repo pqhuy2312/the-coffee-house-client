@@ -3,7 +3,8 @@ import { topicsApi } from 'api/topics'
 import Link from 'next/link'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
-import Dropdown, { IDropdownCol } from './Dropdown'
+import { IMenuItem } from 'types'
+import Dropdown from './Dropdown'
 
 const Header = () => {
     const { data: categories } = useQuery(
@@ -14,15 +15,15 @@ const Header = () => {
 
     const CATEGORIES_DATA = useMemo(
         () =>
-            categories?.reduce((prev: Array<IDropdownCol>, cur) => {
-                const item: IDropdownCol = {
+            categories?.reduce((prev: Array<IMenuItem>, cur) => {
+                const item: IMenuItem = {
                     root: {
                         title: cur.title,
-                        url: `/categories/${cur.slug}`,
+                        url: `/collections/${cur.slug}`,
                     },
                     children: cur.children.map((item) => ({
                         title: item.title,
-                        url: `/categories/${item.slug}`,
+                        url: `/collections/${item.slug}`,
                     })),
                 }
                 prev.push(item)
@@ -33,8 +34,8 @@ const Header = () => {
 
     const TOPICS_DATA = useMemo(
         () =>
-            topics?.reduce((prev: Array<IDropdownCol>, cur) => {
-                const item: IDropdownCol = {
+            topics?.reduce((prev: Array<IMenuItem>, cur) => {
+                const item: IMenuItem = {
                     root: {
                         title: cur.title,
                         url: `/topics/${cur.slug}`,
@@ -62,13 +63,23 @@ const Header = () => {
             },
             {
                 title: 'Menu',
-                url: '/',
-                dropdown: <Dropdown data={CATEGORIES_DATA || []} />,
+                url: '/collections/all',
+                dropdown: (
+                    <Dropdown
+                        viewAllUrl="/collections/all"
+                        data={CATEGORIES_DATA || []}
+                    />
+                ),
             },
             {
                 title: 'Chuyện nhà',
                 url: '/',
-                dropdown: <Dropdown data={TOPICS_DATA || []} />,
+                dropdown: (
+                    <Dropdown
+                        viewAllUrl="/blogs/topics"
+                        data={TOPICS_DATA || []}
+                    />
+                ),
             },
             {
                 title: 'Cửa hàng',

@@ -12,7 +12,7 @@ interface IPostCardProps {
 const PostCard: React.FC<IPostCardProps> = ({ post }) => {
     return (
         <div>
-            <Link href={`/blog/${post.topic.slug}/${post.slug}`}>
+            <Link href={`/blogs/${post.topic.slug}/${post.slug}`}>
                 <a
                     title={post.title}
                     className="block pt-[48%] group overflow-hidden relative rounded-lg"
@@ -29,7 +29,7 @@ const PostCard: React.FC<IPostCardProps> = ({ post }) => {
                 <span className="text-gray-500 text-sm">
                     {format(new Date(post.createdAt), 'dd/MM/yyyy')}
                 </span>
-                <Link href={`/blog/${post.topic.slug}/${post.slug}`}>
+                <Link href={`/blogs/${post.topic.slug}/${post.slug}`}>
                     <a
                         title={post.title}
                         className="my-2 text-[18px] line-clamp-1 font-semibold text-[#191919] hover:text-primary duration-300 transition-colors"
