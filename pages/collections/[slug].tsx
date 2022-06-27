@@ -63,6 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const res = await categoriesApi.getCategoryBySlug(
             params?.slug as string,
         )
+
         if (res.parentId) {
             await queryClient.prefetchInfiniteQuery(
                 `/categories/${res.slug}/products?limit=9`,

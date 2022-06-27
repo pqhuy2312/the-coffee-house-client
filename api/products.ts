@@ -29,10 +29,10 @@ export const productsApi = {
     },
     getProductsByCategory: async ({
         queryKey,
-        pageParam = 1,
+        pageParam,
     }: QueryFunctionContext) => {
         const res: IApiResponse<IPaginationResponse<IProduct[]>> =
-            await api.get(`${queryKey}&page=${pageParam}`)
+            await api.get(`${queryKey}&page=${pageParam ? pageParam : 1}`)
         return res.data
     },
     getRelatedProducts: async (slug: string, params: IPaginationParams) => {
