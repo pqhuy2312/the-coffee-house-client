@@ -4,13 +4,14 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useLayoutEffect } from 'react'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
 import parse from 'html-react-parser'
 import { mdParser } from 'components/EditorField'
 import LatestPosts from 'components/LatestPosts'
+import { INotFoundProps } from 'types'
 
-const DetailPost = () => {
+const DetailPost = (props: INotFoundProps) => {
     const router = useRouter()
     const { data: post } = useQuery(
         ['post', router.query?.postSlug],
@@ -31,6 +32,12 @@ const DetailPost = () => {
             enabled: !!router.query?.topicSlug,
         },
     )
+
+    useLayoutEffect(() => {
+        if (props.isNotFound) {
+            router.push('/')
+        }
+    }, [])
 
     return (
         <div className="pb-[400px]">
@@ -94,9 +101,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const post = await postsApi.getPost(params?.postSlug as string)
         if (post.topic.slug !== params?.slug) {
             return {
-                redirect: {
-                    destination: '/',
-                    permanent: false,
+                props: {
+                    isNotFound: true,
                 },
             }
         }
@@ -117,9 +123,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ])
     } catch (error) {
         return {
-            redirect: {
-                destination: '/',
-                permanent: false,
+            props: {
+                isNotFound: true,
             },
         }
     }

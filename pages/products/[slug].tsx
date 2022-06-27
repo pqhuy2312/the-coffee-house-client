@@ -7,11 +7,17 @@ import RelatedProducts from 'components/RelatedProducts'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import React, {
+    ReactElement,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useState,
+} from 'react'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
-import { IProductSize, ITopping } from 'types'
+import { INotFoundProps, IProductSize, ITopping } from 'types'
 
-const DetailProduct = () => {
+const DetailProduct = (props: INotFoundProps) => {
     const router = useRouter()
     const { data: product } = useQuery(
         ['product', router.query?.slug],
@@ -31,6 +37,12 @@ const DetailProduct = () => {
             enabled: !!router.query?.slug,
         },
     )
+
+    useLayoutEffect(() => {
+        if (props.isNotFound) {
+            router.push('/')
+        }
+    }, [])
 
     const [price, setPrice] = useState<number>(() => {
         if (!product) return 0
@@ -234,9 +246,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ])
     } catch (error) {
         return {
-            redirect: {
-                destination: '/',
-                permanent: false,
+            props: {
+                isNotFound: true,
             },
         }
     }

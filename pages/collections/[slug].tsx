@@ -3,10 +3,16 @@ import CollectionsLayout from 'components/CollectionsLayout'
 import MenuBlock from 'components/MenuBlock'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import React, { Fragment, ReactElement } from 'react'
+import React, {
+    Fragment,
+    ReactElement,
+    useEffect,
+    useLayoutEffect,
+} from 'react'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
+import { INotFoundProps } from 'types'
 
-const Collection = () => {
+const Collection = (props: INotFoundProps) => {
     const router = useRouter()
     const { data: category } = useQuery(
         ['category', router.query?.slug],
@@ -15,6 +21,13 @@ const Collection = () => {
             enabled: !!router.query?.slug,
         },
     )
+
+    useLayoutEffect(() => {
+        if (props.isNotFound) {
+            router.push('/')
+        }
+    }, [])
+
     return (
         <div>
             {category?.parentId ? (
@@ -88,9 +101,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         }
     } catch (error) {
         return {
-            redirect: {
-                destination: '/',
-                permanent: false,
+            props: {
+                isNotFound: true,
             },
         }
     }

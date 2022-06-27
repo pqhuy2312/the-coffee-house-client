@@ -26,7 +26,7 @@ const InfoAndStory: React.FC<IInfoAndStoryProps> = ({ info, story }) => {
                         Thông tin
                     </h2>
                     <div className="text-sm leading-6">
-                        {parse(mdParser.render(info))}
+                        {parse(mdParser.render(info || ''))}
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@ const InfoAndStory: React.FC<IInfoAndStoryProps> = ({ info, story }) => {
                                 : 120,
                     }}
                 >
-                    {parse(mdParser.render(story))}
+                    {parse(mdParser.render(story || ''))}
                 </div>
                 <button
                     className="text-primary font-semibold text-sm"
