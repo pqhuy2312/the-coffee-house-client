@@ -166,8 +166,8 @@ const CollectionsLayout: React.FC<ICollectionsLayout> = ({ children }) => {
             <main>
                 <div className="layout pt-10 pb-12">
                     <div className="flex">
-                        <div className="w-1/5 border-r-2 border-[#00000026] sticky top-0">
-                            <ul>
+                        <div className="w-1/5 border-r-2 border-[#00000026]">
+                            <ul className="sticky top-[70px]">
                                 {CATEGORIES_DATA?.map((category, index) => (
                                     <Fragment key={index}>
                                         <CollectionItem category={category} />
